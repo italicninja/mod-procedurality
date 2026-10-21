@@ -59,7 +59,9 @@ flowchart LR
 
 1. Clone into `azerothcore-wotlk/modules/mod-procedurality`, next to
    [mod-forge](https://github.com/italicninja/mod-forge), which it needs for affixed rewards (`ForgeMgr.h`).
-2. Apply the core patch `0004-generated-quest-hooks`. It adds runtime quest registration to ObjectMgr
+2. Use a core with the generated-quest hooks: commit `57eb12e` ("Generated quests: ObjectMgr registration and
+   script hooks", trailer `wowproject-patch: azerothcore-wotlk/0004-generated-quest-hooks`) on branch `wowproject`
+   of [italicninja/azerothcore-wotlk](https://github.com/italicninja/azerothcore-wotlk). It adds runtime quest registration to ObjectMgr
    (`ReserveQuestTemplates`, `AddGeneratedQuest`, `HasGeneratedQuests`, `SetQuestPOIs`, `RemoveQuestPOIs`) and three
    hooks: `PlayerScript::OnPlayerBeforeQuestRewardItem`, `PlayerScript::OnPlayerBeforeSendQuest` and
    `WorldScript::OnAfterQuestDataReload`.
@@ -108,7 +110,7 @@ Log channel: `module.procedurality`.
 
 `src/ProceduralityMgr.h` is the API. `ProceduralityMgr::IsGeneratedQuest(id)` and `IsRareEntry(entry)` tell
 generated quests and rares apart, `sProceduralityMgr->GetBounty(questId)` returns an incident (kind, area, target,
-giver, rare), and `Post()` posts one for a player. The core hooks from `0004-generated-quest-hooks` are generic, so
+giver, rare), and `Post()` posts one for a player. The core's generated-quest hooks are generic, so
 another module can register its own runtime quests the same way.
 
 ## Status
