@@ -1,0 +1,184 @@
+##################################################
+# PROCEDURALITY CONFIGURATION FILE               #
+##################################################
+
+[worldserver]
+
+# Procedurality: generated quests and rewards for players (bounties, Wanted rares).
+# Design: docs/procedurality.md in the wowproject repo. GM commands: .procedurality (or .proc).
+# Log: logger "module.procedurality" (under Logger.module).
+
+###################################################################################################
+# PROCEDURAL CONTENT (wowproject docs/procedurality.md)
+#
+#    Procedurality.Enable
+#        Description: Run the director, which posts bounties ("kill N of X near Y" quests in the
+#                     ID range 910000-999999) around real (connected, non-bot) players. Bounties
+#                     already posted load, expire and can be turned in even when disabled.
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
+
+Procedurality.Enable = 0
+
+#
+#    Procedurality.Interval
+#        Description: Seconds between director runs.
+#        Default:     60
+
+Procedurality.Interval = 60
+
+#
+#    Procedurality.Debug
+#        Description: Director messages in chat for online GM (and above) accounts.
+#        Default:     0 - (Off)
+#                     1 - (Events: posted, no longer offered, retired, rare died / up)
+#                     2 - (Also every director decision per player, e.g. why nothing was posted)
+
+Procedurality.Debug = 0
+
+#
+#    Procedurality.Activity.HalfLifeMinutes
+#        Description: Half-life of the kill counts the director uses to find quiet camps.
+#        Default:     30
+
+Procedurality.Activity.HalfLifeMinutes = 30
+
+#
+#    Procedurality.Bounty.MaxActive
+#    Procedurality.Bounty.MaxPerZone
+#    Procedurality.Bounty.MaxPerGiver
+#        Description: Live bounties world-wide, per zone, and per quest giver.
+#        Default:     30, 2, 3
+
+Procedurality.Bounty.MaxActive = 30
+Procedurality.Bounty.MaxPerZone = 2
+Procedurality.Bounty.MaxPerGiver = 3
+
+#
+#    Procedurality.Bounty.PlayerCooldownMinutes
+#        Description: Minutes before the director posts another bounty for the same player.
+#        Default:     20
+
+Procedurality.Bounty.PlayerCooldownMinutes = 20
+
+#
+#    Procedurality.Bounty.NearbyYards
+#        Description: No new bounty for a player while an offered one for their team and level
+#                     (-3..+2) lies within this many yards.
+#        Default:     700
+
+Procedurality.Bounty.NearbyYards = 700
+
+#
+#    Procedurality.Bounty.SearchYards
+#    Procedurality.Bounty.MinYards
+#        Description: Camps are looked for between MinYards and SearchYards from the player.
+#        Default:     700, 100
+
+Procedurality.Bounty.SearchYards = 700
+Procedurality.Bounty.MinYards = 100
+
+#
+#    Procedurality.Bounty.CampYards
+#    Procedurality.Bounty.MinCampSize
+#        Description: A camp is at least MinCampSize spawns of one creature within CampYards of
+#                     each other (local-respawn-eligible, level within 2 of the player, not
+#                     friendly to the player's team).
+#        Default:     80, 5
+
+Procedurality.Bounty.CampYards = 80
+Procedurality.Bounty.MinCampSize = 5
+
+#
+#    Procedurality.Bounty.GiverYards
+#        Description: The giver is a friendly quest giver (with at least one quest of its own) in
+#                     the camp's zone within this many yards of the camp: the one nearest the player,
+#                     counting half its distance to the camp too.
+#        Default:     900
+
+Procedurality.Bounty.GiverYards = 900
+
+#
+#    Procedurality.Bounty.XPDifficulty
+#    Procedurality.Bounty.MoneyRate
+#        Description: Reward: QuestXP.dbc difficulty column (0-8, 5 = a normal kill quest) and a
+#                     multiplier on the money (about 5 * level^1.87 copper).
+#        Default:     5, 1.0
+
+Procedurality.Bounty.XPDifficulty = 5
+Procedurality.Bounty.MoneyRate = 1.0
+
+#
+#    Procedurality.Bounty.OfferMinutes
+#    Procedurality.Bounty.GraceMinutes
+#        Description: A bounty is offered for OfferMinutes, then holders have GraceMinutes to turn
+#                     it in before it is removed from every quest log.
+#        Default:     120, 120
+
+Procedurality.Bounty.OfferMinutes = 120
+Procedurality.Bounty.GraceMinutes = 120
+
+#
+#    Procedurality.Wanted.Chance
+#        Description: Chance (%) that the director posts a Wanted rare instead of a bounty: a named
+#                     rare copy of a camp's creature (reserved creature_template rows 190100-191099,
+#                     never reused) and a quest to kill it on the same kind of giver. Wanted
+#                     incidents share the bounty budgets, lifetimes and cooldown.
+#        Default:     35
+
+Procedurality.Wanted.Chance = 35
+
+#
+#    Procedurality.Wanted.MaxActive
+#    Procedurality.Wanted.MaxPerZone
+#        Description: Live Wanted rares world-wide and per zone.
+#        Default:     5, 1
+
+Procedurality.Wanted.MaxActive = 5
+Procedurality.Wanted.MaxPerZone = 1
+
+#
+#    Procedurality.Wanted.HealthMultiplier
+#    Procedurality.Wanted.DamageMultiplier
+#        Description: The rare's health and damage against its base creature (on top of the rare
+#                     rank's own Rate.Creature.Rare.* rates). It is up to 2 levels higher too.
+#        Default:     3.0, 1.3
+
+Procedurality.Wanted.HealthMultiplier = 3.0
+Procedurality.Wanted.DamageMultiplier = 1.3
+
+#
+#    Procedurality.Wanted.RespawnMinutes
+#        Description: Minutes after the rare dies (or its corpse is gone) before it is back, until
+#                     the quest retires, so everyone holding it gets a chance.
+#        Default:     10
+
+Procedurality.Wanted.RespawnMinutes = 10
+
+#
+#    Procedurality.Wanted.BlueChance
+#        Description: Chance (%) a Wanted quest's reward choices are blue rather than green.
+#        Default:     25
+
+Procedurality.Wanted.BlueChance = 25
+
+#
+#    Procedurality.Wanted.XPDifficulty
+#        Description: QuestXP.dbc difficulty column for Wanted quests (money is twice a bounty's).
+#        Default:     6
+
+Procedurality.Wanted.XPDifficulty = 6
+
+#
+#    Procedurality.Rewards.Affixes
+#        Description: Wanted rewards are rolled with Path of Exile-style affixes (mod-forge)
+#                     for each player who turns the quest in, and shown as previews in the quest
+#                     dialog. Needs Forge.Enable. Off: the plain base item the player picked.
+#                     Read at startup.
+#        Default:     1 - (Enabled)
+#                     0 - (Disabled)
+
+Procedurality.Rewards.Affixes = 1
+
+#
+###################################################################################################
